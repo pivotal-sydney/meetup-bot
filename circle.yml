@@ -1,0 +1,19 @@
+machine:
+  java:
+    version: oraclejdk8
+test:
+  override:
+    - ./gradlew test
+dependencies:
+  pre:
+    - 'curl -L "https://cli.run.pivotal.io/stable?release=linux64-binary&source=github" | tar -zx'
+deployment:
+  production:
+    branch: master
+    commands:
+      - './gradlew build'
+      - './cf login -u $CF_USERNAME -p $CF_PASSWORD -a "https://api.run.pivotal.io" -o $CF_ORGANIZATION -s $CF_SPACE'
+      - './cf push $CF_APPLICATION -p ./build/libs/meetup-bot-0.0.1-SNAPSHOT.jar'
+notify:
+  webhooks:
+    - url: http://pulse.pivotallabs.com/projects/1deb52dc-72cf-409f-9674-807d382fd733/status

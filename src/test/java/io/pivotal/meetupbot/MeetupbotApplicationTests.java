@@ -1,5 +1,6 @@
-package io.pivotal;
+package io.pivotal.meetupbot;
 
+import io.pivotal.meetupbot.MeetupbotApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.SpringApplicationConfiguration;
